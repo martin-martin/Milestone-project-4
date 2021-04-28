@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'store/store.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 id="heading">Store</h1>
+
+<section id="container">
+    {% for product in products %}
+    <h5>{{product.product_name}}</h5>
+    <p>{{product.product_description}}</p>
+    <p>{{product.price_with_vat}} kr</p>
+    <a href="{% url 'product_details' product.id %}"><button>Details</button></a>
+    {% endfor %}
+    
+</section>
+
+{% endblock %}

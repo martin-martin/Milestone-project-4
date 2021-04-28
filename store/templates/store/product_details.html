@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'store/store.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1 id="heading">Product details</h1>
+
+<section id="container">
+    
+    <h5>{{ind_product.product_name}}</h5>
+    <p>{{ind_product.product_description}}</p>
+    <p>{{ind_product.price_with_vat}} kr</p>
+    <a href="#"><button>Cart</button></a>
+    
+</section>
+
+{% endblock %}
