@@ -13,7 +13,12 @@
     <h5>{{ind_product.product_name}}</h5>
     <p>{{ind_product.product_description}}</p>
     <p>{{ind_product.price_with_vat}} kr</p>
-    <a href="#"><button>Cart</button></a>
+    
+    <form action="{% url 'cart' %}" method="POST">
+        {% csrf_token %}
+        <input type="hidden" value="{{ind_product.id}}", name="id">
+        <input type="submit" value="cart">
+    </form>
     
 </section>
 
