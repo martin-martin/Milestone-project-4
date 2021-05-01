@@ -8,33 +8,24 @@ def cart(request):
         id = form_data["id"]
         product = Product.objects.get(id=id)
 
-        cart_items = request.session.get("cart_items", []) # On any python dicts, you can use the get("key", default)
 
-        item_exists = False
-        for v in cart_items:
-            if v.id == product.id:
-                item_exists = True
-                break
-        
-        if item_exists:
-            cart_items.append(product)
-
-        request.session["cart_items"] = cart_items
-        context = {
-            "cart_items": cart_items
-        }
+        request.session.get("cart_items", [])
 
         
+        cart_items = []
+
+        cart_items.append(product.product_name)
+        cart_items.append(product.product_description)
+        cart_items.append(product.product_price)
+
+        request.session["cart_items"] += [cart_items]
+
+        print(request.session["cart_items"])
 
         return redirect("store")
+        
 
     else:
 
-        cart_items = request.session.get("cart_items", [])
         
-        context = {
-            "cart_items": cart_items
-        }
-
-
-        return render(request, "cart/cart.html", context)
+        return render(request, "cart/cart.html")
