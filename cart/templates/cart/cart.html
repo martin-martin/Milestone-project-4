@@ -13,4 +13,11 @@
 
 {% block content %}
 <h1 id="heading">Cart</h1>
+{% for i in cart_items %}
+{% for j in i %}
+<h5>{{j.name}}</h5>
+<p>{{j.description}}</p>
+<p>{{j.price}} kr</p>
+{% endfor %}
+{% endfor %}
 {% endblock %}

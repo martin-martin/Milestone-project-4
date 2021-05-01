@@ -8,24 +8,34 @@ def cart(request):
         id = form_data["id"]
         product = Product.objects.get(id=id)
 
+        try:
+            request.session.get("cart_items", [])
 
-        request.session.get("cart_items", [])
+            cart_item = []
 
-        
-        cart_items = []
+            price = product.product_price
+            price *= 0.25
 
-        cart_items.append(product.product_name)
-        cart_items.append(product.product_description)
-        cart_items.append(product.product_price)
+            item = {
+                "name": product.product_name,
+                "description": product.product_description,
+                "price": price
+            }
 
-        request.session["cart_items"] += [cart_items]
+            cart_item.append(item)
 
-        print(request.session["cart_items"])
+            request.session["cart_items"] += [cart_item]
+
+        except KeyError:
+            print("Key not found")
 
         return redirect("store")
-        
 
     else:
 
-        
-        return render(request, "cart/cart.html")
+        cart_items = request.session.get("cart_items", [])
+        context = {
+            "cart_items": cart_items
+        }
+
+        return render(request, "cart/cart.html", context)
